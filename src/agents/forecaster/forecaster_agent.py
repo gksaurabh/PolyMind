@@ -5,13 +5,15 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../../..'))
 from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.hackernews import HackerNewsTools
+from agno.tools.newspaper4k import Newspaper4kTools
+from agno.tools.googlesearch import GoogleSearchTools
 from src.prompts.agent_prompts import AgentPrompts
 
 class ForecasterAgent():
     def __init__(self):
         self.agent = Agent(
             model=OpenAIChat(id="gpt-4o", temperature=0.5),
-            tools=[HackerNewsTools()],
+            tools=[HackerNewsTools(), Newspaper4kTools(), GoogleSearchTools()],
             instructions=AgentPrompts.FORECASTER_INSTRUCTIONS,
             markdown=True,
         )

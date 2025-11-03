@@ -1,0 +1,31 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../..'))
+
+from agno.agent import Agent
+from agno.models.openai import OpenAIChat
+from agno.tools.hackernews import HackerNewsTools
+from src.prompts.agent_prompts import AgentPrompts
+
+class HistorianAgent():
+    def __init__(self):
+        self.agent = Agent(
+            model=OpenAIChat(id="gpt-4o", temperature=0.5),
+            tools=[HackerNewsTools()],
+            instructions=AgentPrompts.HISTORIAN_INSTRUCTIONS,
+            markdown=True,
+        )
+
+    def run(self, topic: str, stream: bool = False):
+        return self.agent.run(f"Write a detailed report on the topic: {topic}", stream=stream)
+    
+if __name__ == "__main__":
+    historian_agent = HistorianAgent()
+    try:
+        response = historian_agent.run("renewable energy", stream=False)
+        if response is not None:
+            # Access the content attribute from the RunOutput object
+            print(getattr(response, 'content', str(response)))
+
+    except Exception as e:
+        print(f"Error occurred in HistorianAgent: {e}")

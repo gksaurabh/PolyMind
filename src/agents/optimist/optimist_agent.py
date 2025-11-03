@@ -12,6 +12,7 @@ from src.prompts.agent_prompts import AgentPrompts
 class OptimistAgent():
     def __init__(self):
         self.agent = Agent(
+            name="Optimist Agent",
             model=OpenAIChat(id="gpt-4o", temperature=0.5),
             tools=[HackerNewsTools(), Newspaper4kTools(), GoogleSearchTools()],
             instructions=AgentPrompts.OPTIMIST_INSTRUCTIONS,

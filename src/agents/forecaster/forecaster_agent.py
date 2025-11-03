@@ -12,6 +12,7 @@ from src.prompts.agent_prompts import AgentPrompts
 class ForecasterAgent():
     def __init__(self):
         self.agent = Agent(
+            name="Forecaster Agent",
             model=OpenAIChat(id="gpt-4o", temperature=0.5),
             tools=[HackerNewsTools(), Newspaper4kTools(), GoogleSearchTools()],
             instructions=AgentPrompts.FORECASTER_INSTRUCTIONS,

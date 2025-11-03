@@ -16,7 +16,7 @@ class JudgeTeam():
         historian_agent = HistorianAgent()
         forecaster_agent = ForecasterAgent()
         self.team = Team(
-            name="News and Weather Team",
+            name="Judge Team",
             members=[optimist_agent.agent, pessimist_agent.agent, historian_agent.agent, forecaster_agent.agent],
             model=OpenAIChat(id="gpt-5", reasoning_effort="high"),
             instructions=AgentPrompts.JUDGE_INSTRUCTIONS,

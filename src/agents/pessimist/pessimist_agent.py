@@ -6,15 +6,15 @@ from agno.agent import Agent
 from agno.models.openai import OpenAIChat
 from agno.tools.hackernews import HackerNewsTools
 from agno.tools.newspaper4k import Newspaper4kTools
-from agno.tools.googlesearch import GoogleSearchTools
+from agno.tools.googlesearch import GoogleSearchTools   
 from src.prompts.agent_prompts import AgentPrompts
 
-class HistorianAgent():
+class PessimistAgent():
     def __init__(self):
         self.agent = Agent(
             model=OpenAIChat(id="gpt-4o", temperature=0.5),
             tools=[HackerNewsTools(), Newspaper4kTools(), GoogleSearchTools()],
-            instructions=AgentPrompts.HISTORIAN_INSTRUCTIONS,
+            instructions=AgentPrompts.PESSIMIST_INSTRUCTIONS,
             markdown=True,
         )
 
@@ -22,12 +22,12 @@ class HistorianAgent():
         return self.agent.run(f"Write a detailed report on the topic: {topic}", stream=stream)
     
 if __name__ == "__main__":
-    historian_agent = HistorianAgent()
+    pessimist_agent = PessimistAgent()
     try:
-        response = historian_agent.run("renewable energy", stream=False)
+        response = pessimist_agent.run("The future of renewable energy", stream=False)
         if response is not None:
             # Access the content attribute from the RunOutput object
             print(getattr(response, 'content', str(response)))
 
     except Exception as e:
-        print(f"Error occurred in HistorianAgent: {e}")
+        print(f"Error occurred in PessimistAgent: {e}")

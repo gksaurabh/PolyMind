@@ -18,10 +18,12 @@ class JudgeTeam():
         self.team = Team(
             name="Judge Team",
             members=[optimist_agent.agent, pessimist_agent.agent, historian_agent.agent, forecaster_agent.agent],
-            model=OpenAIChat(id="gpt-5", reasoning_effort="high"),
+            model=OpenAIChat(id="gpt-4o"),
             instructions=AgentPrompts.JUDGE_INSTRUCTIONS,
             tools=[ReasoningTools(add_instructions=True), DuckDuckGoTools()],
             reasoning=True,
+            show_members_responses=True,
+            get_member_information_tool=True,
             markdown=True
         )
     
